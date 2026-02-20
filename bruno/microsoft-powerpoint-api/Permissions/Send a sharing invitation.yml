@@ -1,0 +1,135 @@
+info:
+  name: Send a sharing invitation
+  type: http
+  seq: 5
+  tags:
+    - Permissions
+
+http:
+  method: POST
+  url: "{{baseUrl}}/me/drive/items/:item-id/invite"
+  params:
+    - name: item-id
+      value: "123"
+      type: path
+      description: Unique ID of the drive item.
+  body:
+    type: json
+    data: |-
+      {
+        "recipients": [
+          {
+            "email": ""
+          }
+        ],
+        "message": "",
+        "requireSignIn": false,
+        "sendInvitation": false,
+        "roles": [
+          "read"
+        ]
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: Default
+    request:
+      url: "{{baseUrl}}/me/drive/items/:item-id/invite"
+      method: POST
+      params:
+        - name: item-id
+          value: ""
+          type: path
+          description: Unique ID of the drive item.
+      body:
+        type: json
+        data: |-
+          {
+            "recipients": [
+              {
+                "email": ""
+              }
+            ],
+            "message": "",
+            "requireSignIn": false,
+            "sendInvitation": false,
+            "roles": [
+              "read"
+            ]
+          }
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "value": [
+              {
+                "id": "perm-003-invite",
+                "roles": [
+                  "write"
+                ],
+                "grantedTo": {
+                  "user": {
+                    "id": "user-ghi-789",
+                    "displayName": "Alice Wang",
+                    "email": "alice.wang@contoso.com"
+                  }
+                }
+              }
+            ]
+          }
+  - name: Default
+    request:
+      url: "{{baseUrl}}/me/drive/items/:item-id/invite"
+      method: POST
+      params:
+        - name: item-id
+          value: ""
+          type: path
+          description: Unique ID of the drive item.
+      body:
+        type: json
+        data: |-
+          {
+            "recipients": [
+              {
+                "email": ""
+              }
+            ],
+            "message": "",
+            "requireSignIn": false,
+            "sendInvitation": false,
+            "roles": [
+              "read"
+            ]
+          }
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: Content-Type
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "error": {
+              "code": "unauthenticated",
+              "message": "Access token is missing, expired, or invalid.",
+              "innerError": {
+                "request-id": "00000000-0000-0000-0000-000000000001",
+                "date": "2025-06-15T12:00:00Z"
+              }
+            }
+          }

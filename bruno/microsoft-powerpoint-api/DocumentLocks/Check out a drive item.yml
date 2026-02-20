@@ -1,0 +1,126 @@
+info:
+  name: Check out a drive item
+  type: http
+  seq: 1
+  tags:
+    - DocumentLocks
+
+http:
+  method: POST
+  url: "{{baseUrl}}/me/drive/items/:item-id/checkout"
+  params:
+    - name: item-id
+      value: "123"
+      type: path
+      description: Unique ID of the drive item.
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: No content returned on successful checkout.
+    request:
+      url: "{{baseUrl}}/me/drive/items/:item-id/checkout"
+      method: POST
+      params:
+        - name: item-id
+          value: ""
+          type: path
+          description: Unique ID of the drive item.
+    response:
+      status: 204
+      statusText: No Content
+      headers:
+        - name: Content-Type
+          value: application/json
+      body:
+        type: json
+        data: "null"
+  - name: Default
+    request:
+      url: "{{baseUrl}}/me/drive/items/:item-id/checkout"
+      method: POST
+      params:
+        - name: item-id
+          value: ""
+          type: path
+          description: Unique ID of the drive item.
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: Content-Type
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "error": {
+              "code": "unauthenticated",
+              "message": "Access token is missing, expired, or invalid.",
+              "innerError": {
+                "request-id": "00000000-0000-0000-0000-000000000001",
+                "date": "2025-06-15T12:00:00Z"
+              }
+            }
+          }
+  - name: NotFound
+    request:
+      url: "{{baseUrl}}/me/drive/items/:item-id/checkout"
+      method: POST
+      params:
+        - name: item-id
+          value: ""
+          type: path
+          description: Unique ID of the drive item.
+    response:
+      status: 404
+      statusText: Not Found
+      headers:
+        - name: Content-Type
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "error": {
+              "code": "itemNotFound",
+              "message": "The resource could not be found.",
+              "innerError": {
+                "request-id": "00000000-0000-0000-0000-000000000003",
+                "date": "2025-06-15T12:00:02Z"
+              }
+            }
+          }
+  - name: Default
+    request:
+      url: "{{baseUrl}}/me/drive/items/:item-id/checkout"
+      method: POST
+      params:
+        - name: item-id
+          value: ""
+          type: path
+          description: Unique ID of the drive item.
+    response:
+      status: 423
+      statusText: Locked
+      headers:
+        - name: Content-Type
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "error": {
+              "code": "resourceLocked",
+              "message": "The file is already checked out by another user.",
+              "innerError": {
+                "request-id": "a1b2c3d4-e5f6-7890-abcd-ef0123456789",
+                "date": "2025-06-15T16:30:00Z"
+              }
+            }
+          }

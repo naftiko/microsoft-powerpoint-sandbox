@@ -1,0 +1,117 @@
+info:
+  name: Search for items in the current user's drive
+  type: http
+  seq: 1
+  tags:
+    - Search
+
+http:
+  method: GET
+  url: "{{baseUrl}}/me/drive/root/search(q=':search-text')"
+  params:
+    - name: search-text
+      value: naftiko
+      type: path
+    - name: $select
+      value: ""
+      type: query
+      disabled: true
+    - name: $top
+      value: "25"
+      type: query
+      description: Maximum number of results to return.
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: Default
+    request:
+      url: "{{baseUrl}}/me/drive/root/search(q=':search-text')"
+      method: GET
+      params:
+        - name: search-text
+          value: ""
+          type: path
+        - name: $select
+          value: ""
+          type: query
+          disabled: true
+        - name: $top
+          value: "25"
+          type: query
+          description: Maximum number of results to return.
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "value": [
+              {
+                "id": "01ABCDEF12345678",
+                "name": "Product-Roadmap-Q2.pptx",
+                "size": 4194304,
+                "webUrl": "https://onedrive.live.com/redir?resid=01ABCDEF12345678",
+                "createdDateTime": "2025-04-01T08:00:00Z",
+                "lastModifiedDateTime": "2025-06-14T17:45:00Z",
+                "file": {
+                  "mimeType": "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+                }
+              },
+              {
+                "id": "01XYZABC98765432",
+                "name": "Product-Roadmap-Q1.pptx",
+                "size": 3670016,
+                "webUrl": "https://onedrive.live.com/redir?resid=01XYZABC98765432",
+                "createdDateTime": "2025-01-15T10:00:00Z",
+                "lastModifiedDateTime": "2025-03-30T12:00:00Z",
+                "file": {
+                  "mimeType": "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+                }
+              }
+            ]
+          }
+  - name: Default
+    request:
+      url: "{{baseUrl}}/me/drive/root/search(q=':search-text')"
+      method: GET
+      params:
+        - name: search-text
+          value: ""
+          type: path
+        - name: $select
+          value: ""
+          type: query
+          disabled: true
+        - name: $top
+          value: "25"
+          type: query
+          description: Maximum number of results to return.
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: Content-Type
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "error": {
+              "code": "unauthenticated",
+              "message": "Access token is missing, expired, or invalid.",
+              "innerError": {
+                "request-id": "00000000-0000-0000-0000-000000000001",
+                "date": "2025-06-15T12:00:00Z"
+              }
+            }
+          }

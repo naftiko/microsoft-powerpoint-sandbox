@@ -1,0 +1,235 @@
+info:
+  name: Download file content or convert to another format
+  type: http
+  seq: 1
+  tags:
+    - Content
+
+http:
+  method: GET
+  url: "{{baseUrl}}/me/drive/items/:item-id/content?format=pdf&format=html&format=jpg&format=png"
+  params:
+    - name: format
+      value: pdf
+      type: query
+      description: |
+        Target format for server-side conversion. Supported values depend on the source file type.
+    - name: format
+      value: html
+      type: query
+      description: |
+        Target format for server-side conversion. Supported values depend on the source file type.
+    - name: format
+      value: jpg
+      type: query
+      description: |
+        Target format for server-side conversion. Supported values depend on the source file type.
+    - name: format
+      value: png
+      type: query
+      description: |
+        Target format for server-side conversion. Supported values depend on the source file type.
+    - name: item-id
+      value: "123"
+      type: path
+      description: Unique ID of the drive item.
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: Binary file content returned as an octet stream.
+    request:
+      url: "{{baseUrl}}/me/drive/items/:item-id/content"
+      method: GET
+      params:
+        - name: item-id
+          value: ""
+          type: path
+          description: Unique ID of the drive item.
+        - name: format
+          value: pdf
+          type: query
+          description: |
+            Target format for server-side conversion. Supported values depend on the source file type.
+          disabled: true
+        - name: format
+          value: html
+          type: query
+          description: |
+            Target format for server-side conversion. Supported values depend on the source file type.
+          disabled: true
+        - name: format
+          value: jpg
+          type: query
+          description: |
+            Target format for server-side conversion. Supported values depend on the source file type.
+          disabled: true
+        - name: format
+          value: png
+          type: query
+          description: |
+            Target format for server-side conversion. Supported values depend on the source file type.
+          disabled: true
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: application/octet-stream
+      body:
+        type: text
+        data: (binary content)
+  - name: Default
+    request:
+      url: "{{baseUrl}}/me/drive/items/:item-id/content"
+      method: GET
+      params:
+        - name: item-id
+          value: ""
+          type: path
+          description: Unique ID of the drive item.
+        - name: format
+          value: pdf
+          type: query
+          description: |
+            Target format for server-side conversion. Supported values depend on the source file type.
+          disabled: true
+        - name: format
+          value: html
+          type: query
+          description: |
+            Target format for server-side conversion. Supported values depend on the source file type.
+          disabled: true
+        - name: format
+          value: jpg
+          type: query
+          description: |
+            Target format for server-side conversion. Supported values depend on the source file type.
+          disabled: true
+        - name: format
+          value: png
+          type: query
+          description: |
+            Target format for server-side conversion. Supported values depend on the source file type.
+          disabled: true
+    response:
+      status: 302
+      statusText: Found
+      headers:
+        - name: Content-Type
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "@microsoft.graph.downloadUrl": "https://contoso-my.sharepoint.com/_api/download/01ABCDEF12345678?tempauth=token123"
+          }
+  - name: Default
+    request:
+      url: "{{baseUrl}}/me/drive/items/:item-id/content"
+      method: GET
+      params:
+        - name: item-id
+          value: ""
+          type: path
+          description: Unique ID of the drive item.
+        - name: format
+          value: pdf
+          type: query
+          description: |
+            Target format for server-side conversion. Supported values depend on the source file type.
+          disabled: true
+        - name: format
+          value: html
+          type: query
+          description: |
+            Target format for server-side conversion. Supported values depend on the source file type.
+          disabled: true
+        - name: format
+          value: jpg
+          type: query
+          description: |
+            Target format for server-side conversion. Supported values depend on the source file type.
+          disabled: true
+        - name: format
+          value: png
+          type: query
+          description: |
+            Target format for server-side conversion. Supported values depend on the source file type.
+          disabled: true
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: Content-Type
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "error": {
+              "code": "unauthenticated",
+              "message": "Access token is missing, expired, or invalid.",
+              "innerError": {
+                "request-id": "00000000-0000-0000-0000-000000000001",
+                "date": "2025-06-15T12:00:00Z"
+              }
+            }
+          }
+  - name: NotFound
+    request:
+      url: "{{baseUrl}}/me/drive/items/:item-id/content"
+      method: GET
+      params:
+        - name: item-id
+          value: ""
+          type: path
+          description: Unique ID of the drive item.
+        - name: format
+          value: pdf
+          type: query
+          description: |
+            Target format for server-side conversion. Supported values depend on the source file type.
+          disabled: true
+        - name: format
+          value: html
+          type: query
+          description: |
+            Target format for server-side conversion. Supported values depend on the source file type.
+          disabled: true
+        - name: format
+          value: jpg
+          type: query
+          description: |
+            Target format for server-side conversion. Supported values depend on the source file type.
+          disabled: true
+        - name: format
+          value: png
+          type: query
+          description: |
+            Target format for server-side conversion. Supported values depend on the source file type.
+          disabled: true
+    response:
+      status: 404
+      statusText: Not Found
+      headers:
+        - name: Content-Type
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "error": {
+              "code": "itemNotFound",
+              "message": "The resource could not be found.",
+              "innerError": {
+                "request-id": "00000000-0000-0000-0000-000000000003",
+                "date": "2025-06-15T12:00:02Z"
+              }
+            }
+          }

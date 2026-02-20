@@ -1,0 +1,251 @@
+info:
+  name: Update drive item properties
+  type: http
+  seq: 2
+  tags:
+    - Metadata
+
+http:
+  method: PATCH
+  url: "{{baseUrl}}/me/drive/items/:item-id"
+  params:
+    - name: item-id
+      value: "123"
+      type: path
+      description: Unique ID of the drive item.
+  body:
+    type: json
+    data: |-
+      {
+        "name": "Naftiko",
+        "description": "This is an integration.",
+        "parentReference": {
+          "driveId": "",
+          "driveType": "personal",
+          "id": "",
+          "path": "",
+          "siteId": ""
+        },
+        "fileSystemInfo": {
+          "createdDateTime": "",
+          "lastModifiedDateTime": ""
+        }
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: Default
+    request:
+      url: "{{baseUrl}}/me/drive/items/:item-id"
+      method: PATCH
+      params:
+        - name: item-id
+          value: ""
+          type: path
+          description: Unique ID of the drive item.
+      body:
+        type: json
+        data: |-
+          {
+            "name": "",
+            "description": "",
+            "parentReference": {
+              "driveId": "",
+              "driveType": "personal",
+              "id": "",
+              "path": "",
+              "siteId": ""
+            },
+            "fileSystemInfo": {
+              "createdDateTime": "",
+              "lastModifiedDateTime": ""
+            }
+          }
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "id": "01ABCDEF12345678",
+            "name": "Q2-Strategy-Deck-Final.pptx",
+            "description": "Q2 2025 corporate strategy presentation — approved",
+            "size": 3145728,
+            "webUrl": "https://onedrive.live.com/redir?resid=01ABCDEF12345678",
+            "createdDateTime": "2025-04-01T08:00:00Z",
+            "lastModifiedDateTime": "2025-06-15T16:00:00Z",
+            "createdBy": {
+              "user": {
+                "id": "user-abc-123",
+                "displayName": "Jane Smith",
+                "email": "jane.smith@contoso.com"
+              }
+            },
+            "lastModifiedBy": {
+              "user": {
+                "id": "user-abc-123",
+                "displayName": "Jane Smith",
+                "email": "jane.smith@contoso.com"
+              }
+            },
+            "parentReference": {
+              "driveId": "b!drive-id-001",
+              "driveType": "business",
+              "id": "01PARENT00000001",
+              "path": "/drive/root:/Decks"
+            },
+            "file": {
+              "mimeType": "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+              "hashes": {
+                "quickXorHash": "cXlvckhDdHg="
+              }
+            }
+          }
+  - name: Default
+    request:
+      url: "{{baseUrl}}/me/drive/items/:item-id"
+      method: PATCH
+      params:
+        - name: item-id
+          value: ""
+          type: path
+          description: Unique ID of the drive item.
+      body:
+        type: json
+        data: |-
+          {
+            "name": "",
+            "description": "",
+            "parentReference": {
+              "driveId": "",
+              "driveType": "personal",
+              "id": "",
+              "path": "",
+              "siteId": ""
+            },
+            "fileSystemInfo": {
+              "createdDateTime": "",
+              "lastModifiedDateTime": ""
+            }
+          }
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: Content-Type
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "error": {
+              "code": "unauthenticated",
+              "message": "Access token is missing, expired, or invalid.",
+              "innerError": {
+                "request-id": "00000000-0000-0000-0000-000000000001",
+                "date": "2025-06-15T12:00:00Z"
+              }
+            }
+          }
+  - name: NotFound
+    request:
+      url: "{{baseUrl}}/me/drive/items/:item-id"
+      method: PATCH
+      params:
+        - name: item-id
+          value: ""
+          type: path
+          description: Unique ID of the drive item.
+      body:
+        type: json
+        data: |-
+          {
+            "name": "",
+            "description": "",
+            "parentReference": {
+              "driveId": "",
+              "driveType": "personal",
+              "id": "",
+              "path": "",
+              "siteId": ""
+            },
+            "fileSystemInfo": {
+              "createdDateTime": "",
+              "lastModifiedDateTime": ""
+            }
+          }
+    response:
+      status: 404
+      statusText: Not Found
+      headers:
+        - name: Content-Type
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "error": {
+              "code": "itemNotFound",
+              "message": "The resource could not be found.",
+              "innerError": {
+                "request-id": "00000000-0000-0000-0000-000000000003",
+                "date": "2025-06-15T12:00:02Z"
+              }
+            }
+          }
+  - name: Default
+    request:
+      url: "{{baseUrl}}/me/drive/items/:item-id"
+      method: PATCH
+      params:
+        - name: item-id
+          value: ""
+          type: path
+          description: Unique ID of the drive item.
+      body:
+        type: json
+        data: |-
+          {
+            "name": "",
+            "description": "",
+            "parentReference": {
+              "driveId": "",
+              "driveType": "personal",
+              "id": "",
+              "path": "",
+              "siteId": ""
+            },
+            "fileSystemInfo": {
+              "createdDateTime": "",
+              "lastModifiedDateTime": ""
+            }
+          }
+    response:
+      status: 409
+      statusText: Conflict
+      headers:
+        - name: Content-Type
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "error": {
+              "code": "nameAlreadyExists",
+              "message": "The destination already contains an item with the same name.",
+              "innerError": {
+                "request-id": "f3a4b5c6-d7e8-9012-bcde-f01234567890",
+                "date": "2025-06-15T16:00:01Z"
+              }
+            }
+          }

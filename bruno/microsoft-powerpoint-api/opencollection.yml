@@ -1,0 +1,31 @@
+opencollection: 1.0.0
+
+info:
+  name: microsoft-powerpoint-api
+
+request:
+  auth:
+    type: oauth2
+    flow: authorization_code
+    authorizationUrl: https://login.microsoftonline.com/common/oauth2/v2.0/authorize
+    accessTokenUrl: https://login.microsoftonline.com/common/oauth2/v2.0/token
+    refreshTokenUrl: "{{oauth_refresh_url}}"
+    callbackUrl: "{{oauth_callback_url}}"
+    credentials:
+      clientId: "{{oauth_client_id}}"
+      clientSecret: "{{oauth_client_secret}}"
+      placement: header
+    scope: Files.Read Files.ReadWrite Files.Read.All Files.ReadWrite.All Sites.Read.All
+    state: "{{oauth_state}}"
+    tokenConfig:
+      placement:
+        header: Bearer
+    settings:
+      autoFetchToken: false
+      autoRefreshToken: true
+bundled: false
+extensions:
+  bruno:
+    ignore:
+      - node_modules
+      - .git

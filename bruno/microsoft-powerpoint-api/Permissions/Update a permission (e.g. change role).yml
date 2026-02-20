@@ -1,0 +1,119 @@
+info:
+  name: Update a permission (e.g. change role)
+  type: http
+  seq: 3
+  tags:
+    - Permissions
+
+http:
+  method: PATCH
+  url: "{{baseUrl}}/me/drive/items/:item-id/permissions/:permission-id"
+  params:
+    - name: item-id
+      value: "123"
+      type: path
+      description: Unique ID of the drive item.
+    - name: permission-id
+      value: "123"
+      type: path
+      description: Unique ID of the permission entry.
+  body:
+    type: json
+    data: |-
+      {
+        "roles": [
+          "read"
+        ]
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: Default
+    request:
+      url: "{{baseUrl}}/me/drive/items/:item-id/permissions/:permission-id"
+      method: PATCH
+      params:
+        - name: item-id
+          value: ""
+          type: path
+          description: Unique ID of the drive item.
+        - name: permission-id
+          value: ""
+          type: path
+          description: Unique ID of the permission entry.
+      body:
+        type: json
+        data: |-
+          {
+            "roles": [
+              "read"
+            ]
+          }
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "id": "perm-002-write",
+            "roles": [
+              "read"
+            ],
+            "grantedTo": {
+              "user": {
+                "id": "user-def-456",
+                "displayName": "John Doe",
+                "email": "john.doe@contoso.com"
+              }
+            }
+          }
+  - name: Default
+    request:
+      url: "{{baseUrl}}/me/drive/items/:item-id/permissions/:permission-id"
+      method: PATCH
+      params:
+        - name: item-id
+          value: ""
+          type: path
+          description: Unique ID of the drive item.
+        - name: permission-id
+          value: ""
+          type: path
+          description: Unique ID of the permission entry.
+      body:
+        type: json
+        data: |-
+          {
+            "roles": [
+              "read"
+            ]
+          }
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: Content-Type
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "error": {
+              "code": "unauthenticated",
+              "message": "Access token is missing, expired, or invalid.",
+              "innerError": {
+                "request-id": "00000000-0000-0000-0000-000000000001",
+                "date": "2025-06-15T12:00:00Z"
+              }
+            }
+          }

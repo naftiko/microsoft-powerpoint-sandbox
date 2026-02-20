@@ -1,0 +1,358 @@
+info:
+  name: Upload or replace a file (simple upload ≤ 4 MB)
+  type: http
+  seq: 1
+  tags:
+    - Uploads
+
+http:
+  method: PUT
+  url: "{{baseUrl}}/me/drive/items/:parent-id:/:filename:/content"
+  headers:
+    - name: Content-Type
+      value: ""
+  params:
+    - name: parent-id
+      value: "123"
+      type: path
+      description: Unique ID of the parent folder.
+    - name: filename
+      value: "123"
+      type: path
+      description: Desired file name including extension.
+    - name: "@microsoft.graph.conflictBehavior"
+      value: rename
+      type: query
+      description: Conflict resolution behaviour when a file with the same name exists.
+      disabled: true
+    - name: "@microsoft.graph.conflictBehavior"
+      value: replace
+      type: query
+      description: Conflict resolution behaviour when a file with the same name exists.
+    - name: "@microsoft.graph.conflictBehavior"
+      value: fail
+      type: query
+      description: Conflict resolution behaviour when a file with the same name exists.
+      disabled: true
+  body:
+    type: text
+    data: ""
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: Default
+    request:
+      url: "{{baseUrl}}/me/drive/items/:parent-id:/:filename:/content"
+      method: PUT
+      headers:
+        - name: Content-Type
+          value: ""
+      params:
+        - name: parent-id
+          value: ""
+          type: path
+          description: Unique ID of the parent folder.
+        - name: filename
+          value: ""
+          type: path
+          description: Desired file name including extension.
+        - name: "@microsoft.graph.conflictBehavior"
+          value: rename
+          type: query
+          description: Conflict resolution behaviour when a file with the same name exists.
+          disabled: true
+        - name: "@microsoft.graph.conflictBehavior"
+          value: replace
+          type: query
+          description: Conflict resolution behaviour when a file with the same name exists.
+        - name: "@microsoft.graph.conflictBehavior"
+          value: fail
+          type: query
+          description: Conflict resolution behaviour when a file with the same name exists.
+          disabled: true
+      body:
+        type: text
+        data: ""
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "id": "01ABCDEF12345678",
+            "name": "Keynote-Deck.pptx",
+            "size": 2457600,
+            "webUrl": "https://onedrive.live.com/redir?resid=01ABCDEF12345678",
+            "createdDateTime": "2025-01-10T09:00:00Z",
+            "lastModifiedDateTime": "2025-06-15T14:30:00Z",
+            "createdBy": {
+              "user": {
+                "id": "user-abc-123",
+                "displayName": "Jane Smith",
+                "email": "jane.smith@contoso.com"
+              }
+            },
+            "lastModifiedBy": {
+              "user": {
+                "id": "user-abc-123",
+                "displayName": "Jane Smith",
+                "email": "jane.smith@contoso.com"
+              }
+            },
+            "parentReference": {
+              "driveId": "b!drive-id-001",
+              "driveType": "business",
+              "id": "01PARENT00000001",
+              "path": "/drive/root:/Presentations"
+            },
+            "file": {
+              "mimeType": "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+              "hashes": {
+                "quickXorHash": "aXhvckhBc2g="
+              }
+            },
+            "@microsoft.graph.downloadUrl": "https://contoso-my.sharepoint.com/_api/download/01ABCDEF12345678"
+          }
+  - name: Default
+    request:
+      url: "{{baseUrl}}/me/drive/items/:parent-id:/:filename:/content"
+      method: PUT
+      headers:
+        - name: Content-Type
+          value: ""
+      params:
+        - name: parent-id
+          value: ""
+          type: path
+          description: Unique ID of the parent folder.
+        - name: filename
+          value: ""
+          type: path
+          description: Desired file name including extension.
+        - name: "@microsoft.graph.conflictBehavior"
+          value: rename
+          type: query
+          description: Conflict resolution behaviour when a file with the same name exists.
+          disabled: true
+        - name: "@microsoft.graph.conflictBehavior"
+          value: replace
+          type: query
+          description: Conflict resolution behaviour when a file with the same name exists.
+        - name: "@microsoft.graph.conflictBehavior"
+          value: fail
+          type: query
+          description: Conflict resolution behaviour when a file with the same name exists.
+          disabled: true
+      body:
+        type: text
+        data: ""
+    response:
+      status: 201
+      statusText: Created
+      headers:
+        - name: Content-Type
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "id": "01NEWFILE7890ABCD",
+            "name": "Keynote-Deck.pptx",
+            "size": 2457600,
+            "webUrl": "https://onedrive.live.com/redir?resid=01NEWFILE7890ABCD",
+            "createdDateTime": "2025-06-15T14:30:00Z",
+            "lastModifiedDateTime": "2025-06-15T14:30:00Z",
+            "createdBy": {
+              "user": {
+                "id": "user-abc-123",
+                "displayName": "Jane Smith",
+                "email": "jane.smith@contoso.com"
+              }
+            },
+            "lastModifiedBy": {
+              "user": {
+                "id": "user-abc-123",
+                "displayName": "Jane Smith",
+                "email": "jane.smith@contoso.com"
+              }
+            },
+            "parentReference": {
+              "driveId": "b!drive-id-001",
+              "driveType": "business",
+              "id": "01PARENT00000001",
+              "path": "/drive/root:/Presentations"
+            },
+            "file": {
+              "mimeType": "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+              "hashes": {
+                "quickXorHash": "bXlvckhCdGg="
+              }
+            },
+            "@microsoft.graph.downloadUrl": "https://contoso-my.sharepoint.com/_api/download/01NEWFILE7890ABCD"
+          }
+  - name: Default
+    request:
+      url: "{{baseUrl}}/me/drive/items/:parent-id:/:filename:/content"
+      method: PUT
+      headers:
+        - name: Content-Type
+          value: ""
+      params:
+        - name: parent-id
+          value: ""
+          type: path
+          description: Unique ID of the parent folder.
+        - name: filename
+          value: ""
+          type: path
+          description: Desired file name including extension.
+        - name: "@microsoft.graph.conflictBehavior"
+          value: rename
+          type: query
+          description: Conflict resolution behaviour when a file with the same name exists.
+          disabled: true
+        - name: "@microsoft.graph.conflictBehavior"
+          value: replace
+          type: query
+          description: Conflict resolution behaviour when a file with the same name exists.
+        - name: "@microsoft.graph.conflictBehavior"
+          value: fail
+          type: query
+          description: Conflict resolution behaviour when a file with the same name exists.
+          disabled: true
+      body:
+        type: text
+        data: ""
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: Content-Type
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "error": {
+              "code": "unauthenticated",
+              "message": "Access token is missing, expired, or invalid.",
+              "innerError": {
+                "request-id": "00000000-0000-0000-0000-000000000001",
+                "date": "2025-06-15T12:00:00Z"
+              }
+            }
+          }
+  - name: Forbidden
+    request:
+      url: "{{baseUrl}}/me/drive/items/:parent-id:/:filename:/content"
+      method: PUT
+      headers:
+        - name: Content-Type
+          value: ""
+      params:
+        - name: parent-id
+          value: ""
+          type: path
+          description: Unique ID of the parent folder.
+        - name: filename
+          value: ""
+          type: path
+          description: Desired file name including extension.
+        - name: "@microsoft.graph.conflictBehavior"
+          value: rename
+          type: query
+          description: Conflict resolution behaviour when a file with the same name exists.
+          disabled: true
+        - name: "@microsoft.graph.conflictBehavior"
+          value: replace
+          type: query
+          description: Conflict resolution behaviour when a file with the same name exists.
+        - name: "@microsoft.graph.conflictBehavior"
+          value: fail
+          type: query
+          description: Conflict resolution behaviour when a file with the same name exists.
+          disabled: true
+      body:
+        type: text
+        data: ""
+    response:
+      status: 403
+      statusText: Forbidden
+      headers:
+        - name: Content-Type
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "error": {
+              "code": "accessDenied",
+              "message": "The caller does not have permission to perform the action.",
+              "innerError": {
+                "request-id": "00000000-0000-0000-0000-000000000002",
+                "date": "2025-06-15T12:00:01Z"
+              }
+            }
+          }
+  - name: NotFound
+    request:
+      url: "{{baseUrl}}/me/drive/items/:parent-id:/:filename:/content"
+      method: PUT
+      headers:
+        - name: Content-Type
+          value: ""
+      params:
+        - name: parent-id
+          value: ""
+          type: path
+          description: Unique ID of the parent folder.
+        - name: filename
+          value: ""
+          type: path
+          description: Desired file name including extension.
+        - name: "@microsoft.graph.conflictBehavior"
+          value: rename
+          type: query
+          description: Conflict resolution behaviour when a file with the same name exists.
+          disabled: true
+        - name: "@microsoft.graph.conflictBehavior"
+          value: replace
+          type: query
+          description: Conflict resolution behaviour when a file with the same name exists.
+        - name: "@microsoft.graph.conflictBehavior"
+          value: fail
+          type: query
+          description: Conflict resolution behaviour when a file with the same name exists.
+          disabled: true
+      body:
+        type: text
+        data: ""
+    response:
+      status: 404
+      statusText: Not Found
+      headers:
+        - name: Content-Type
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "error": {
+              "code": "itemNotFound",
+              "message": "The resource could not be found.",
+              "innerError": {
+                "request-id": "00000000-0000-0000-0000-000000000003",
+                "date": "2025-06-15T12:00:02Z"
+              }
+            }
+          }

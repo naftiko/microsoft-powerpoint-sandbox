@@ -1,0 +1,106 @@
+specificationVersion: '0.19'
+
+aid: microsoft-powerpoint-sandbox
+type: Sandbox
+visibility: Public
+
+name: microsoft-powerpoint-api-sandbox
+description: >-
+  This is a Microsoft Powerpoint sandbox that uses OpenAPI, Microcks, Bruno, and
+  Backstage to provide a 3rd-party REST API and MCP sandbox for Microsoft Powerpoint.
+
+tags:
+  - Presentations
+  - Microsoft
+  - Office
+
+image: https://naftiko.s3.us-east-1.amazonaws.com/naftiko-logo-blue-icon.png
+
+created: '2026-02-19'
+modified: '2026-02-19'
+
+url: https://github.com/naftiko/microsoft-powerpoint-sandbox/blob/main/README.md
+
+apis:
+
+    - aid: microsoft-powerpoint:microsoft-powerpoint-api
+      name: Microsooft Powerpoint API
+      description: >-
+        Working with Microsoft Powerpoint files via the Microsoft Graph API, providing a sandbox for working with specific file scenarios as part of automation.
+      tags:
+        - Presentations
+        - Microsoft
+        - Office
+      properties:
+
+        - type: OpenApi
+          url: openapi/microsoft-powerpoint-openapi.yaml
+
+        - type: MockRestServer
+          url: http://localhost:8080/rest/microsoft-powerpoint-api-sandbox/1.0.0
+        - type: MockMCPServer
+          url: http://localhost:8080/rest/microsoft-powerpoint-api-sandbox/1.0.0/sse
+
+        - type: OpenCollection
+          url: bruno/microsoft-office-copilot-api/opencollection.yml  
+
+common:
+
+  - type: GitHubHttpUrl
+    url: https://github.com/naftiko/microsoft-powerpoint-sandbox
+
+  - type: GitHubSshUrl
+    url: git@github.com:naftiko/microsoft-powerpoint-sandbox.git
+
+  - type: GitHubIssues
+    url: https://github.com/naftiko/microsoft-powerpoint-sandbox/issues
+
+  - type: GitHubDiscussions
+    url: https://github.com/orgs/naftiko/discussions
+
+  - type: Standards
+    data:
+
+      - name: APIs.json
+        description: This uses the APIs.json
+        docUrl: http://apisjson.org/
+
+      - name: OpenAPI
+        description: This uses OpenAPI to define access to all HTTP APIs.
+        docUrl: https://spec.openapis.org/oas/latest.html
+
+      - name: JSON Schema
+        description: This uses JSON Schema to define and validate all entities used.
+        docUrl: https://json-schema.org/specification
+
+      - name: Model Context Protocol
+        description: This uses MCP expressed as JSON schema to define each MCP server.
+        docUrl: https://modelcontextprotocol.io/
+
+      - name: Bruno Collections
+        description: This uses Bruno Collections to define each executable HTTP API integration.
+        docUrl: https://docs.usebruno.com/
+
+      - name: Bruno Environments
+        description: This uses Bruno Environments to store keys for each API to use in automation.
+        docUrl: https://docs.usebruno.com/secrets-management/overview
+
+  - type: Services
+    data:
+
+      - aid: microsoft-graph
+        name: Microsoft Graph
+        description: >-
+          Microsoft Graph is a unified API endpoint providing access to Microsoft 365
+          services including mail, calendar, contacts, documents, directory, devices,
+          and more.
+        docUrl: https://learn.microsoft.com/en-us/graph/
+        apisJson: >-
+          https://raw.githubusercontent.com/api-evangelist/microsoft-graph/refs/heads/main/apis.yml
+        loginUrl: https://portal.azure.com/
+        privacyPolicyUrl: https://privacy.microsoft.com/en-us/privacystatement
+
+maintainers:
+
+  - FN: Kin Lane
+    email: kinlane@naftiko.io

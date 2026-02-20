@@ -1,0 +1,161 @@
+info:
+  name: Create an upload session (resumable upload for large files)
+  type: http
+  seq: 2
+  tags:
+    - Uploads
+
+http:
+  method: POST
+  url: "{{baseUrl}}/me/drive/items/:parent-id:/:filename:/createUploadSession"
+  params:
+    - name: parent-id
+      value: "123"
+      type: path
+      description: Unique ID of the parent folder.
+    - name: filename
+      value: "123"
+      type: path
+      description: Desired file name including extension.
+  body:
+    type: json
+    data: |-
+      {
+        "item": {
+          "@microsoft.graph.conflictBehavior": "rename",
+          "name": "",
+          "description": ""
+        }
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: Default
+    request:
+      url: "{{baseUrl}}/me/drive/items/:parent-id:/:filename:/createUploadSession"
+      method: POST
+      params:
+        - name: parent-id
+          value: ""
+          type: path
+          description: Unique ID of the parent folder.
+        - name: filename
+          value: ""
+          type: path
+          description: Desired file name including extension.
+      body:
+        type: json
+        data: |-
+          {
+            "item": {
+              "@microsoft.graph.conflictBehavior": "rename",
+              "name": "",
+              "description": ""
+            }
+          }
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "uploadUrl": "https://contoso-my.sharepoint.com/_api/v2.0/upload/01PARENT00000001/All-Hands-Meeting.pptx",
+            "expirationDateTime": "2025-06-16T14:30:00Z",
+            "nextExpectedRanges": [
+              "0-"
+            ]
+          }
+  - name: Default
+    request:
+      url: "{{baseUrl}}/me/drive/items/:parent-id:/:filename:/createUploadSession"
+      method: POST
+      params:
+        - name: parent-id
+          value: ""
+          type: path
+          description: Unique ID of the parent folder.
+        - name: filename
+          value: ""
+          type: path
+          description: Desired file name including extension.
+      body:
+        type: json
+        data: |-
+          {
+            "item": {
+              "@microsoft.graph.conflictBehavior": "rename",
+              "name": "",
+              "description": ""
+            }
+          }
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: Content-Type
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "error": {
+              "code": "unauthenticated",
+              "message": "Access token is missing, expired, or invalid.",
+              "innerError": {
+                "request-id": "00000000-0000-0000-0000-000000000001",
+                "date": "2025-06-15T12:00:00Z"
+              }
+            }
+          }
+  - name: Forbidden
+    request:
+      url: "{{baseUrl}}/me/drive/items/:parent-id:/:filename:/createUploadSession"
+      method: POST
+      params:
+        - name: parent-id
+          value: ""
+          type: path
+          description: Unique ID of the parent folder.
+        - name: filename
+          value: ""
+          type: path
+          description: Desired file name including extension.
+      body:
+        type: json
+        data: |-
+          {
+            "item": {
+              "@microsoft.graph.conflictBehavior": "rename",
+              "name": "",
+              "description": ""
+            }
+          }
+    response:
+      status: 403
+      statusText: Forbidden
+      headers:
+        - name: Content-Type
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "error": {
+              "code": "accessDenied",
+              "message": "The caller does not have permission to perform the action.",
+              "innerError": {
+                "request-id": "00000000-0000-0000-0000-000000000002",
+                "date": "2025-06-15T12:00:01Z"
+              }
+            }
+          }

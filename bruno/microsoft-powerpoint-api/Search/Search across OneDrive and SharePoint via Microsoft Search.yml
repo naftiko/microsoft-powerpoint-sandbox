@@ -1,0 +1,155 @@
+info:
+  name: Search across OneDrive and SharePoint via Microsoft Search
+  type: http
+  seq: 2
+  tags:
+    - Search
+
+http:
+  method: POST
+  url: "{{baseUrl}}/search/query"
+  body:
+    type: json
+    data: |-
+      {
+        "requests": [
+          {
+            "entityTypes": [
+              "driveItem"
+            ],
+            "query": {
+              "queryString": "filetype:pptx product roadmap"
+            },
+            "from": 0,
+            "size": 0,
+            "fields": []
+          }
+        ]
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: Default
+    request:
+      url: "{{baseUrl}}/search/query"
+      method: POST
+      body:
+        type: json
+        data: |-
+          {
+            "requests": [
+              {
+                "entityTypes": [
+                  "driveItem"
+                ],
+                "query": {
+                  "queryString": "filetype:pptx product roadmap"
+                },
+                "from": 0,
+                "size": 0,
+                "fields": []
+              }
+            ]
+          }
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "value": [
+              {
+                "searchTerms": [
+                  "product",
+                  "roadmap"
+                ],
+                "hitsContainers": [
+                  {
+                    "total": 2,
+                    "moreResultsAvailable": false,
+                    "hits": [
+                      {
+                        "hitId": "01ABCDEF12345678",
+                        "rank": 1,
+                        "summary": "Q2 2025 product roadmap with milestone timelines and feature prioritization…",
+                        "resource": {
+                          "id": "01ABCDEF12345678",
+                          "name": "Product-Roadmap-Q2.pptx",
+                          "size": 4194304,
+                          "webUrl": "https://onedrive.live.com/redir?resid=01ABCDEF12345678",
+                          "file": {
+                            "mimeType": "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+                          }
+                        }
+                      },
+                      {
+                        "hitId": "01XYZABC98765432",
+                        "rank": 2,
+                        "summary": "Q1 2025 product strategy and competitive landscape overview…",
+                        "resource": {
+                          "id": "01XYZABC98765432",
+                          "name": "Product-Roadmap-Q1.pptx",
+                          "size": 3670016,
+                          "webUrl": "https://onedrive.live.com/redir?resid=01XYZABC98765432",
+                          "file": {
+                            "mimeType": "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+  - name: Default
+    request:
+      url: "{{baseUrl}}/search/query"
+      method: POST
+      body:
+        type: json
+        data: |-
+          {
+            "requests": [
+              {
+                "entityTypes": [
+                  "driveItem"
+                ],
+                "query": {
+                  "queryString": "filetype:pptx product roadmap"
+                },
+                "from": 0,
+                "size": 0,
+                "fields": []
+              }
+            ]
+          }
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: Content-Type
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "error": {
+              "code": "unauthenticated",
+              "message": "Access token is missing, expired, or invalid.",
+              "innerError": {
+                "request-id": "00000000-0000-0000-0000-000000000001",
+                "date": "2025-06-15T12:00:00Z"
+              }
+            }
+          }

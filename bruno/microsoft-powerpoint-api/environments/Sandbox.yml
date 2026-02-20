@@ -1,0 +1,4 @@
+name: Sandbox
+variables:
+  - name: baseUrl
+    value: http://localhost:8080/rest/microsoft-powerpoint-api/1.0.0
