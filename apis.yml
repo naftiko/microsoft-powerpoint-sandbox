@@ -14,7 +14,7 @@ tags:
   - Microsoft
   - Office
 
-image: https://naftiko.s3.us-east-1.amazonaws.com/naftiko-logo-blue-icon.png
+image: https://naftiko.github.io/docs/images/monogram/monogram_full_color_512.png
 
 created: '2026-02-19'
 modified: '2026-02-19'
@@ -27,6 +27,9 @@ apis:
       name: Microsooft Powerpoint API
       description: >-
         Working with Microsoft Powerpoint files via the Microsoft Graph API, providing a sandbox for working with specific file scenarios as part of automation.
+      humanURL: https://github.com/naftiko/microsoft-powerpoint-sandbox
+      baseURL: http://localhost:8080/rest/microsoft-powerpoint-sandbox/1.0.0
+      image: https://naftiko.github.io/docs/images/monogram/monogram_full_color_512.png
       tags:
         - Presentations
         - Microsoft
@@ -46,6 +49,57 @@ apis:
 
 common:
 
+  - type: AgentSkill
+    url: skills/upload-file/SKILL.md
+
+  - type: AgentSkill
+    url: skills/create-upload-session/SKILL.md
+
+  - type: AgentSkill
+    url: skills/create-child-item/SKILL.md
+
+  - type: AgentSkill
+    url: skills/get-file-content/SKILL.md
+
+  - type: AgentSkill
+    url: skills/get-drive-item/SKILL.md
+
+  - type: AgentSkill
+    url: skills/update-drive-item/SKILL.md
+
+  - type: AgentSkill
+    url: skills/delete-drive-item/SKILL.md
+
+  - type: AgentSkill
+    url: skills/list-item-permissions/SKILL.md
+
+  - type: AgentSkill
+    url: skills/get-item-permission/SKILL.md
+
+  - type: AgentSkill
+    url: skills/update-item-permission/SKILL.md
+
+  - type: AgentSkill
+    url: skills/delete-item-permission/SKILL.md
+
+  - type: AgentSkill
+    url: skills/invite-item-recipients/SKILL.md
+
+  - type: AgentSkill
+    url: skills/create-sharing-link/SKILL.md
+
+  - type: AgentSkill
+    url: skills/checkout-item/SKILL.md
+
+  - type: AgentSkill
+    url: skills/checkin-item/SKILL.md
+
+  - type: AgentSkill
+    url: skills/search-drive-items/SKILL.md
+
+  - type: AgentSkill
+    url: skills/microsoft-search-query/SKILL.md
+
   - type: GitHubHttpUrl
     url: https://github.com/naftiko/microsoft-powerpoint-sandbox
 
@@ -59,6 +113,7 @@ common:
     url: https://github.com/orgs/naftiko/discussions
 
   - type: Standards
+    url: https://github.com/naftiko/microsoft-powerpoint-sandbox
     data:
 
       - name: APIs.json
@@ -86,6 +141,7 @@ common:
         docUrl: https://docs.usebruno.com/secrets-management/overview
 
   - type: Services
+    url: https://github.com/naftiko/microsoft-powerpoint-sandbox
     data:
 
       - aid: microsoft-graph

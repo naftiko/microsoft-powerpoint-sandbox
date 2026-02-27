@@ -19,6 +19,38 @@ These are the OpenAPIs available for the Microsoft PowerPoint Sandbox, which are
 
   - [Microsoft Powerpoint Openapi.yaml](openapi/microsoft-powerpoint-openapi.yaml)
 
+## Agent Skills
+These are the agent skills available for the Microsoft PowerPoint Sandbox, providing a discrete list of capabilities that AI agents can use when working with Microsoft PowerPoint files via OneDrive and SharePoint. Each skill maps directly to an OpenAPI operation, making it easy for agents to discover and invoke the right capability for a given task.
+
+### Uploads
+  - [Upload PowerPoint File](skills/upload-file/SKILL.md) (`uploadFile`) — Upload or replace a PowerPoint presentation in OneDrive using a simple PUT request for files smaller than 4 MB.
+  - [Create Upload Session](skills/create-upload-session/SKILL.md) (`createUploadSession`) — Initiate a resumable upload session for large PowerPoint files (greater than 4 MB) to enable reliable chunked byte-range transfers.
+  - [Create File or Folder Entry](skills/create-child-item/SKILL.md) (`createChildItem`) — Create a new empty file placeholder or folder as a child item under a specified OneDrive parent folder.
+
+### Content
+  - [Download File Content](skills/get-file-content/SKILL.md) (`getFileContent`) — Download the binary content of a PowerPoint presentation, with optional server-side conversion to PDF, HTML, JPG, or PNG.
+
+### Metadata
+  - [Get File Metadata](skills/get-drive-item/SKILL.md) (`getDriveItem`) — Retrieve metadata for a specific PowerPoint file or folder by its OneDrive item ID, including name, size, timestamps, author, and download URL.
+  - [Update File Metadata](skills/update-drive-item/SKILL.md) (`updateDriveItem`) — Update writable properties on a PowerPoint file such as its name, description, or parent folder location for moving.
+  - [Delete File](skills/delete-drive-item/SKILL.md) (`deleteDriveItem`) — Soft-delete a PowerPoint file or folder by moving it to the OneDrive recycle bin, where it can be restored within the retention period.
+
+### Permissions
+  - [List File Permissions](skills/list-item-permissions/SKILL.md) (`listItemPermissions`) — Retrieve all sharing permissions currently applied to a PowerPoint file or folder, including roles for users, groups, and links.
+  - [Get Specific Permission](skills/get-item-permission/SKILL.md) (`getItemPermission`) — Retrieve details for a single sharing permission on a PowerPoint file by its permission ID.
+  - [Update Permission Role](skills/update-item-permission/SKILL.md) (`updateItemPermission`) — Change the role of an existing sharing permission, such as downgrading a collaborator from write to read access.
+  - [Remove Permission](skills/delete-item-permission/SKILL.md) (`deleteItemPermission`) — Revoke a specific sharing permission from a PowerPoint file or folder by its permission ID.
+  - [Share via Invitation](skills/invite-item-recipients/SKILL.md) (`inviteItemRecipients`) — Grant permissions and optionally send an email sharing invitation to specified recipients with configurable roles and sign-in requirements.
+  - [Create Sharing Link](skills/create-sharing-link/SKILL.md) (`createSharingLink`) — Generate an anonymous or organizational sharing link for a PowerPoint file with configurable type, scope, optional password, and expiration date.
+
+### Document Locks
+  - [Check Out File](skills/checkout-item/SKILL.md) (`checkoutItem`) — Lock a PowerPoint presentation for exclusive editing by the current user, making it read-only for others until checked back in.
+  - [Check In File](skills/checkin-item/SKILL.md) (`checkinItem`) — Release the exclusive lock on a checked-out PowerPoint file and optionally publish a new version with a descriptive comment.
+
+### Search
+  - [Search OneDrive](skills/search-drive-items/SKILL.md) (`searchDriveItems`) — Search file names, metadata, and indexed content within the signed-in user's OneDrive to find PowerPoint presentations.
+  - [Search via Microsoft Search](skills/microsoft-search-query/SKILL.md) (`microsoftSearchQuery`) — Use the Microsoft Search API with KQL syntax to find PowerPoint files across OneDrive and all SharePoint sites the user has access to.
+
 ## Support
 Please provide any questions or feedback via GitHub issues, or just email kinlane@naftiko.io with feedback. The goal is to keep iterating upon this sandboxes using existing OpenAPI, Microcks, and Bruno features, offering value out of the box via this forkable capability.
 
